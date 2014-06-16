@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: ad_predictor_dev
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: sqlite3
+  database: ad_predictor_test
+  pool: 5
+  timeout: 5000

@@ -26,5 +26,21 @@ describe AdPredictor::Database::ORM do
       retrieved_impression = db.get_impression(impression.id)
       expect(retrieved_impression.ad).to eq 'Clash of Clans'
     end
+
+    it "finds impressions that match params" do
+      3.times { db.create_impression(imp_params) }
+      impression1 = db.create_impression( date: Time.now,
+                                          hour: 14,
+                                          ad: 'Candy Crush',
+                                          browser: 'Safari',
+                                          platform: 'iOS',
+                                          region: 'Europe',
+                                          clicked: true )
+      retrieved_clicks = db.find_impressions(clicked: true)
+      expect(retrieved_clicks.size).to eq 4
+
+      retrieved_combo = db.find_impressions(ad: 'Clash of Clans', platform: 'Android')
+      expect(retrieved_combo.size).to eq 3
+    end
   end
 end

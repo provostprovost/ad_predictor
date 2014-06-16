@@ -19,8 +19,14 @@ module AdPredictor
 
       def create_impression(attrs)
         impression = Impression.create(attrs)
-        attrs[:id] = impression.id
-        AdPredictor::Impression.new(attrs)
+        AdPredictor::Impression.new(id: impression.id,
+                                    date: impression.date,
+                                    hour: impression.hour,
+                                    ad: impression.ad,
+                                    browser: impression.browser,
+                                    platform: impression.platform,
+                                    region: impression.region,
+                                    clicked: impression.clicked )
       end
 
       def get_impression(id)
@@ -36,6 +42,20 @@ module AdPredictor
       end
 
       def find_impressions(attrs)
+        impressions = Impression.where(attrs)
+        array = []
+        impressions.each do |impression|
+          array.push(AdPredictor::Impression.new(
+                                    id: impression.id,
+                                    date: impression.date,
+                                    hour: impression.hour,
+                                    ad: impression.ad,
+                                    browser: impression.browser,
+                                    platform: impression.platform,
+                                    region: impression.region,
+                                    clicked: impression.clicked ))
+        end
+        array
       end
     end
   end

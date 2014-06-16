@@ -24,6 +24,15 @@ module AdPredictor
       end
 
       def get_impression(id)
+        impression = Impression.find(id)
+        AdPredictor::Impression.new(id: impression.id,
+                                    date: impression.date,
+                                    hour: impression.hour,
+                                    ad: impression.ad,
+                                    browser: impression.browser,
+                                    platform: impression.platform,
+                                    region: impression.region,
+                                    clicked: impression.clicked )
       end
 
       def find_impressions(attrs)

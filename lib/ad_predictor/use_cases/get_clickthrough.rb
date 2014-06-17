@@ -5,7 +5,11 @@ module AdPredictor
 
       db = AdPredictor.db
 
-      impressions = db.find_impressions(inputs)
+      if inputs.class == Array
+        impressions = inputs
+      else
+        impressions = db.find_impressions(inputs)
+      end
 
       clicks = impressions.count { |impression| impression.clicked }
 

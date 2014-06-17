@@ -11,7 +11,7 @@ Sample CSVs are in the /data directory. 'import ./data/training.csv' will import
 ###Application
 Each impression is stored as an [Impression entity](./lib/ad_predictor/entities/impression.rb). When these entities are created they are stored in a SQLite database via the ActiveRecord ORM.
 
-Database interaction is handled in the [AdPredictor::Database::ORM](./lib/ad_predictor/database/ORM.rb) class. This separates persistence from the business logic to allow easy substitution of databases or ORMs.
+Database interaction is handled in the [AdPredictor::Database::ORM](./lib/ad_predictor/database/orm.rb) class. This separates persistence from the business logic to allow easy substitution of databases or ORMs.
 
 Business logic is handled as Use Cases. There are three: [GetAd](./lib/ad_predictor/use_cases/get_ad.rb), [GetClickthrough](./lib/ad_predictor/use_cases/get_clickthrough.rb), and [ImportCSV](./lib/ad_predictor/use_cases/import_csv.rb). These are called from the terminal client but could just as easily be called from another interface.
 

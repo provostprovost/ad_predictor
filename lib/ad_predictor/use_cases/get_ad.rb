@@ -18,10 +18,14 @@ module AdPredictor
         clickthroughs.push(ad: impression.ad, clickthrough: AdPredictor::GetClickthrough.run(ad_matches).clickthrough)
       end
 
-      clickthroughs.sort_by! { |pair| pair[:clickthrough] }
+      if clickthroughs != []
+        clickthroughs.sort_by! { |pair| pair[:clickthrough] }
+        best_ad = clickthroughs.last[:ad]
+        best_clickthrough = clickthroughs.last[:clickthrough]
+      end
 
       # Return name of ad with highest clickthrough
-      success ad: clickthroughs.last[:ad]
+      success ad: best_ad, clickthrough: best_clickthrough
     end
   end
 end

@@ -2,7 +2,7 @@ require 'active_model'
 
 module AdPredictor
   def self.db
-    @db = Database::SQLite.new
+    @db = Database::ORM.new
   end
 end
 

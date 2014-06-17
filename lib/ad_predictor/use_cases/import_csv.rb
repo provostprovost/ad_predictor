@@ -1,6 +1,5 @@
 require 'csv'
 require 'date'
-require 'pry'
 
 module AdPredictor
   class ImportCSV < UseCase

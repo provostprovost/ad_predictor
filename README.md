@@ -9,13 +9,13 @@ This application imports CSVs which contain information about app ad impressions
 Sample CSVs are in the /data directory. 'import ./data/training.csv' will import the largest file, which will take around 30 seconds.
 
 ###Application
-Each impression is stored as an Impression entity. When these entities are created they are stored in a SQLite database via the ActiveRecord ORM.
+Each impression is stored as an [Impression entity](./lib/ad_predictor/entities/impression.rb). When these entities are created they are stored in a SQLite database via the ActiveRecord ORM.
 
-Database interaction is handled in the AdPredictor::Database::ORM class. This separates persistence from the business logic to allow easy substitution of databases or ORMs.
+Database interaction is handled in the [AdPredictor::Database::ORM](./lib/ad_predictor/database/ORM.rb) class. This separates persistence from the business logic to allow easy substitution of databases or ORMs.
 
-Business logic is handled as Use Cases. There are three: GetAd, GetClickthrough, and ImportCSV. These are called from the terminal client but could just as easily be called from another interface.
+Business logic is handled as Use Cases. There are three: [GetAd](./lib/ad_predictor/use_cases/get_ad.rb), [GetClickthrough](./lib/ad_predictor/use_cases/get_clickthrough.rb), and [ImportCSV](./lib/ad_predictor/use_cases/import_csv.rb). These are called from the terminal client but could just as easily be called from another interface.
 
-Tests are in the /spec folder. To run the tests, type 'rspec' in your terminal from the root directory after 'bundle install'ing.
+Tests are in the [/spec](./spec) folder. To run the tests, type 'rspec' in your terminal from the root directory after 'bundle install'ing.
 
 ###Improvements
 * Rather than basing ad suggestions on clickthrough rate, we could (and probably should) base the suggestion on expected value of showing an ad. As an extreme example, an ad in Australia for Clash of Clans could pay $8 per install, have a 50% clickthrough and a 50% install rate for an expected value of $2. Another ad could still pay $8 per install, have a 100% clickthrough but only a 10% install rate and be worth $0.80. This could be implemented with a separate database table "Ads" which contains $/install and install rate for each ad (although those could vary based on region, platform, etc.) The GetAd Use Case would then take that information into account when choosing the ad.
